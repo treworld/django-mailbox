@@ -24,7 +24,7 @@ class GenericFileMailbox(EmailTransport):
         repository = self.get_instance()
         repository.lock()
         for key, message in repository.items():
-            if condition and not condition(message):
+            if condition and condition(message):
                 continue
             repository.remove(key)
             yield message

@@ -40,8 +40,7 @@ class Pop3Transport(EmailTransport):
                     self.server.retr(i + 1)[1]
                 )
                 message = self.get_email_from_bytes(msg_contents)
-
-                if condition and not condition(message):
+                if condition and condition(message):
                     continue
 
                 yield message

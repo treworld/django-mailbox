@@ -1,6 +1,11 @@
 Changelog
 =========
 
+4.7.2
+---
+
+* New setting to keep emails in inbox while preventing duplicates from getting imported.
+
 4.6.1
 -----
 

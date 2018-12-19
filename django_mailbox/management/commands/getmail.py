@@ -8,10 +8,9 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 
-def message_not_in_database(message):
-    if Message.objects.filter(message_id__iexact=message['message-id']).exists():
-        return False
-    return True
+def message_already_exists(message):
+    return Message.objects.filter(
+        message_id__iexact=str(message['message-id']).strip()).exists()
 
 
 class Command(BaseCommand):
@@ -27,7 +26,7 @@ class Command(BaseCommand):
                 mailbox.name
             )
 
-            messages = mailbox.get_new_mail(condition=message_not_in_database)
+            messages = mailbox.get_new_mail(condition=message_already_exists)
             for message in messages:
                 logger.info(
                     'Received %s (from %s)',
